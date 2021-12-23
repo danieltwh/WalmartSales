@@ -10,6 +10,27 @@ from statsmodels.graphics.tsaplots import plot_acf,plot_pacf
 
 import datetime
 
+
+# Function to count missing values for each columns in a DataFrame
+def missing_data(data):
+    # Count number of missing value in a column
+    total_missing = data.isnull().sum()           
+    total = data.isnull().count()
+    
+    # Get Percentage of missing values
+    percent = (data.isnull().sum()/data.isnull().count()*100)   
+    temp = pd.concat([total, total_missing, percent], axis=1, keys=["Total", 'Missing', 'Percent Missing(%)'])
+
+    # Create a Type column, that indicates the data-type of the column.
+    types = []
+    for col in data.columns:
+        dtype = str(data[col].dtype)
+        types.append(dtype)
+    temp['Types'] = types
+
+    return(np.transpose(temp))
+
+
 def adfuller_test(sales):
     result=adfuller(sales)
     labels = ['ADF Test Statistic','p-value','#Lags Used','Number of Observations']
@@ -151,3 +172,22 @@ time= pd.Series([])):
         plt.title('Forecast vs Actuals')
         plt.legend(loc='upper left', fontsize=8)
         plt.show()
+
+
+# Split time series into train and test
+def train_test_split_timeseries(data, split = 0.2, group="Region"):
+
+    train_df = pd.DataFrame()
+    test_df = pd.DataFrame()
+    
+    for r in pd.unique(data[group]):
+        temp = data.loc[data[group] == r, ]
+        temp_train = temp.iloc[:-(int(split*len(temp))), :]
+        temp_test = temp.iloc[-(int(split*len(temp))):, :]
+        print(len(temp), len(temp_train), len(temp_test))
+        train_df = pd.concat([train_df, temp_train], axis = 0)
+        test_df = pd.concat([test_df, temp_test], axis = 0)
+
+    train_df.reset_index(drop=True)
+    test_df.reset_index(drop=True)
+    return train_df, test_df
