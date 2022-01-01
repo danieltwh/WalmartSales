@@ -14,4 +14,5 @@ scikit-learn
 statsmodels
 pmdarima
 PuLP
-fbprophet
+pystan==2.19.1.1
+prophet
