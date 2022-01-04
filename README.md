@@ -3,7 +3,7 @@
 
 ## Installation
 
-1. Creating a new virtual environment using conda `conda create -n walmart python=3.10`
+1. Creating a new virtual environment using conda `conda create -n walmart python=3.7.10`
 
 2. Select conda VE, then activate the VE `conda activate walmart`
 
