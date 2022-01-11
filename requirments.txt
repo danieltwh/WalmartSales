@@ -1,6 +1,6 @@
 #azureml-core
-#azureml-sdk
-#azure-storage-blob==12.3.0
+azureml-sdk==1.24.0
+azure-storage-blob==12.3.0
 
 #azureml-automl-runtime
 
@@ -9,10 +9,10 @@ pandas==1.2.0
 requests==2.23.0
 matplotlib==3.5
 seaborn==0.11.2
-scikit-learn
+scikit-learn==1.0.1
 
-statsmodels
-pmdarima
-PuLP
+statsmodels==0.13.1
+pmdarima==1.8.4
+PuLP==2.6.0
 pystan==2.19.1.1
 prophet
