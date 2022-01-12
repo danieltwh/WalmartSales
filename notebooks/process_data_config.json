@@ -1,0 +1,9 @@
+{ "source_1": {	
+    "feature1": ["step1", "step2", …],
+    "feature2": ["step1", "step2", …] },
+
+    "demand": {
+        "demand": ["impute_prev", "scale_min_max_normalization", …] },
+        "estatistik": {
+            "citizens": ["impute_median", …] }
+}

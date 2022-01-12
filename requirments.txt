@@ -1,6 +1,7 @@
 #azureml-core
 azureml-sdk==1.24.0
 azure-storage-blob==12.3.0
+azure-identity
 
 #azureml-automl-runtime
 

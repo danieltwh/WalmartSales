@@ -89,7 +89,7 @@ def plot_timeseries_complex(group, value, df, time):
 
 def plot_timeseries_analysis(sales):
     df = pd.DataFrame({"sales": sales})
-    fig, axes= plt.subplots(3, 1, figsize=(12,8))
+    fig, axes= plt.subplots(3, 1, figsize=(12,12))
     fig.tight_layout(pad=3.0)
     # ax1 = fig.add_subplot(211)
     sns.lineplot(df.index, df["sales"], ax=axes[0])
