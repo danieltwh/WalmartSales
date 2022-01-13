@@ -23,7 +23,7 @@ def merge_dataframe(df1_info, df2_info):
 def main():
     parser = argparse.ArgumentParser()
     # parser.add_argument("--experiment_name", help="Name of experiment", type=str)
-    # parser.add_argument("--config", help="Instructions for the process data pipeline", type=str)
+    parser.add_argument("--config", help="Instructions for the process data pipeline", type=str)
 
     args = parser.parse_args()
 
@@ -32,25 +32,31 @@ def main():
     # EXPERIMENT_NAME = args.experiment_name
     run = Run.get_context()
 
-    # CONFIG = args.config
-    CONFIG = "{'demand': {'group': ['Region'], 'time':'Date', 'features': {'Weekly_Sales': ['impute_mdian']}}}"
+    CONFIG = args.config
+    # CONFIG = "{'demand': {'group': ['Region'], 'time':'Date', 'features': {'Weekly_Sales': ['impute_mdian']}}}"
 
     PROCESS_DATA_CONFIG = json.loads(CONFIG.replace("'", '"'))
 
     print("Data processing")
 
     ################ Data processing ################
-    ws = Workspace.get(name="Walmart-Sales", 
-    subscription_id =  "ef0073f1-56e3-462f-80b3-3beb320211e4",
-    resource_group = "Walmart-1"
-    )
+    # ws = Workspace.get(name="Walmart-Sales", 
+    # subscription_id =  "ef0073f1-56e3-462f-80b3-3beb320211e4",
+    # resource_group = "Walmart-1"
+    # )
 
     # experiment = Experiment(ws, name=EXPERIMENT_NAME)
     try:
         experiment = run.experiment
-
+        ws = experiment.workspace
     except:
+        ws = Workspace.get(name="Walmart-Sales", 
+        subscription_id =  "ef0073f1-56e3-462f-80b3-3beb320211e4",
+        resource_group = "Walmart-1"
+        )
         experiment = Experiment(ws, "data-processing-test-1")
+
+    # experiment = Experiment(ws, name="data-processing-test-1")
 
     experiment_id = experiment.id
 
