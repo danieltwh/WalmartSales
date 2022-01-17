@@ -1,0 +1,7 @@
+{ "demand": {	
+    "group": ["Region"],
+    "time": "Date",
+    "features" : {
+        "Weekly_Sales": ["impute_mdian"]}
+    }
+}
