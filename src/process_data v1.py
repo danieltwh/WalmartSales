@@ -22,34 +22,44 @@ def merge_dataframe(df1_info, df2_info):
 
 def main():
     parser = argparse.ArgumentParser()
+    # parser.add_argument("--experiment_name", help="Name of experiment", type=str)
     parser.add_argument("--config", help="Instructions for the process data pipeline", type=str)
 
     args = parser.parse_args()
 
     print("Started")
+
+    # EXPERIMENT_NAME = args.experiment_name
     run = Run.get_context()
 
     CONFIG = args.config
+    # CONFIG = "{'demand': {'group': ['Region'], 'time':'Date', 'features': {'Weekly_Sales': ['impute_mdian']}}}"
 
     PROCESS_DATA_CONFIG = json.loads(CONFIG.replace("'", '"'))
 
     print("Data processing")
 
     ################ Data processing ################
+    # ws = Workspace.get(name="Walmart-Sales", 
+    # subscription_id =  "ef0073f1-56e3-462f-80b3-3beb320211e4",
+    # resource_group = "Walmart-1"
+    # )
+
+    # experiment = Experiment(ws, name=EXPERIMENT_NAME)
     try:
         experiment = run.experiment
         ws = experiment.workspace
     except:
-        # For testing purposes
         ws = Workspace.get(name="Walmart-Sales", 
         subscription_id =  "ef0073f1-56e3-462f-80b3-3beb320211e4",
         resource_group = "Walmart-1"
         )
         experiment = Experiment(ws, "data-processing-test-1")
 
+    # experiment = Experiment(ws, name="data-processing-test-1")
+
     experiment_id = experiment.id
 
-    # Datasets should be registered on AzureML
     registered_datasets = list(ws.datasets.keys())
 
     datasets = []
@@ -90,8 +100,7 @@ def main():
 
     # Storage account name and account key
     STORAGE_ACCOUNT_NAME = "walmartsales2005913347"    # Change to storage account name used in project
-    STORAGE_ACCOUNT_KEY = \
-        "uPu7IRa/73JZvkiEBVBAsb8D36g1ZeoRT0YMG7l7ConyJe8aoVKoTwDpDESjZRhs0Mnt6wai7Dwh/IfSAa/B0g=="   # Change to storage account key used in project
+    STORAGE_ACCOUNT_KEY = "uPu7IRa/73JZvkiEBVBAsb8D36g1ZeoRT0YMG7l7ConyJe8aoVKoTwDpDESjZRhs0Mnt6wai7Dwh/IfSAa/B0g=="   # Change to storage account key used in project
 
     conn_string = (
         'DefaultEndpointsProtocol=https;'
